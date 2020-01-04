@@ -54,7 +54,7 @@ module RuboCop
       MANY_CHILD_NODES.each do |type|
         module_eval(<<~RUBY, __FILE__, __LINE__ + 1)
           def on_#{type}(node)
-            node.children.each { |child| send(:"on_\#{child.type}", child) }
+            node.children.compact.each { |child| send(:"on_\#{child.type}", child) }
             nil
           end
         RUBY
